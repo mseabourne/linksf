@@ -149,7 +149,13 @@ class OrganizationEdit extends Component {
   }
 
   newPhone = () => {
+
     const { organization } = this.state
+
+    if(organization.phones === undefined) {
+      organization.phones = [];
+    }
+
     const newPhones = [...organization.phones]
     const newOrganization = {}
 
@@ -230,12 +236,13 @@ class OrganizationEdit extends Component {
 
   handleSubmit = ()  => {
     const { organization, locations } = this.state
-
+    console.log(`organization:${organization}`)
     updateOrganization(organization)
-
+    console.log(`locations:${organization}`)
     locations.map(location => {
       updateLocation(location)
     })
+    console.log('update submitted');
   }
 
   handleReset = () => {
@@ -318,7 +325,7 @@ class OrganizationEdit extends Component {
           </button>
         </div>
         <div className={s.phonesBox}>
-          {organization.phones.map((phone, index) => (
+          {organization.phones && organization.phones.map((phone, index) => (
             <PhoneEdit
               key={`phone-${index}`}
               phone={phone}
